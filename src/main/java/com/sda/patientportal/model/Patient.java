@@ -1,11 +1,13 @@
 package com.sda.patientportal.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @Table(name = "patients")
@@ -13,8 +15,6 @@ public class Patient {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @OneToMany
-//    @JoinColumn(name="id")
     private Long id;
 
     @Column(name = "first_name")
@@ -33,6 +33,10 @@ public class Patient {
     @NotNull(message = "Age is missing")
     @Range(min = 1, max = 100, message = "Age is outside range")
     private Integer age;
+
+    @OneToMany(mappedBy = "sender")
+    @JsonIgnore
+    private List<Message> messages;
 
     public Long getId() {
         return id;

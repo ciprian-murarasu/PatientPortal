@@ -14,8 +14,6 @@ public class Doctor {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @OneToMany
-//    @JoinColumn(name="id")
     private Long id;
 
     @Column(name = "first_name")
@@ -38,6 +36,9 @@ public class Doctor {
     @OneToMany(mappedBy = "receiver")
     @JsonIgnore
     private List<Message> messages;
+
+    @OneToMany(mappedBy = "doctor")
+    private List<TimeSlot> timeSlots;
 
     public Long getId() {
         return id;
